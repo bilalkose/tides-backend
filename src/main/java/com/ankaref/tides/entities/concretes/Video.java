@@ -1,4 +1,5 @@
 package com.ankaref.tides.entities.concretes;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,21 +10,22 @@ import javax.persistence.*;
 @Table(name="videos")
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","education"})
 public class Video {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",nullable = false)
+    @Column(name = "video_id",nullable = false)
     private int id;
     @Column(name = "name",nullable = false)
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "id")
-    private Education education;
+    @Column(name = "educationId",nullable = false)
+    private int educationId;
 
 
     //TODO: BURAYA DÖNÜLECEK VİDEOLAR VERİTABANINDA NASIL SAKLANIR BAKILACAK.
+    @Column(name = "video",nullable = false)
     private String video;
 
 

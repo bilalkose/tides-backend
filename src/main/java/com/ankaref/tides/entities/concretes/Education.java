@@ -30,10 +30,9 @@ public class Education {
     private String explanation;
 
     @Column(name="image",nullable = false)
-    //TODO veritabanına görüntü nasıl kayıt olacak araştır. gerekli notasyonları araştır
     private String image;
 
-    @OneToMany
+    @OneToMany(mappedBy = "educationId")
     private List<Video> videos;
 
 }
