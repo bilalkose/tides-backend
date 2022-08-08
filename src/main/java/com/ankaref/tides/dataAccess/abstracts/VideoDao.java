@@ -9,5 +9,7 @@ import java.util.List;
 
 public interface VideoDao extends JpaRepository<Video,Integer> {
     List<Video> getByEducationId(int educationId);
+
+
 }
 

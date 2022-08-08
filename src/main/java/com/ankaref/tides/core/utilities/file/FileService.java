@@ -23,7 +23,16 @@ public class FileService {
        outputStream.close();
        return fileName;
     }
+    public String writeBaseVideo64StringtoFile (String video) throws IOException{
+        String fileName= randomName();
+        File target =new File ("D:\\projects\\backend\\tides\\src\\main\\java\\video-storage\\"+ fileName);
+        OutputStream outputStream=new FileOutputStream(target);
 
+        byte[] base64enoded= Base64.getDecoder().decode(video);
+        outputStream.write(base64enoded);
+        outputStream.close();
+        return fileName;
+    }
     public String randomName(){
         return UUID.randomUUID().toString().replaceAll("-","");
 

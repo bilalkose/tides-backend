@@ -11,4 +11,5 @@ public interface VideoService {
 
     DataResult<List<Video>> getAllVideos(int education_id);
 
+    Result delete(int videoId);
 }

@@ -29,4 +29,9 @@ public class EducationController {
       return this.educationService.add(education);
    }
 
+   @DeleteMapping("delete-education")
+   public Result delete(int educationId){
+      return this.educationService.delete(educationId);
+   }
+
 }

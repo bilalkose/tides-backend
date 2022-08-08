@@ -7,7 +7,9 @@ import com.ankaref.tides.core.utilities.results.Result;
 import com.ankaref.tides.core.utilities.results.SuccessDataResult;
 import com.ankaref.tides.core.utilities.results.SuccessResult;
 import com.ankaref.tides.dataAccess.abstracts.EducationDao;
+import com.ankaref.tides.dataAccess.abstracts.VideoDao;
 import com.ankaref.tides.entities.concretes.Education;
+import com.ankaref.tides.entities.concretes.Video;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,12 +22,14 @@ import java.util.List;
 public class EducationManager implements EducationService {
 
     private EducationDao educationDao;
+    private VideoDao videoDao;
     private FileService fileService;
 
     @Autowired
-    public EducationManager(EducationDao educationDao, FileService fileService) {
+    public EducationManager(EducationDao educationDao, FileService fileService,VideoDao videoDao) {
         this.educationDao = educationDao;
         this.fileService=fileService;
+        this.videoDao=videoDao;
     }
 
     @Override
@@ -43,5 +47,17 @@ public class EducationManager implements EducationService {
         }
         this.educationDao.save(education);
         return new SuccessResult("Eğitim başarıyla eklendi");
+    }
+
+    //TODO: Eğitim silindiğinde veya videolar silindiğinde dosya şeklinde tutulan image ve video yapılarıda silinmeli buraya dön !!
+    @Override
+    public Result delete(int educationId) {
+        List<Video> videos= videoDao.getByEducationId(educationId);
+        videos.forEach((thisVideo) ->{
+            int numberId=thisVideo.getId();
+            this.videoDao.deleteById(numberId);
+        });
+        this.educationDao.deleteById(educationId);
+        return new SuccessResult("Eğitim silme işlemi başarılı");
     }
 }

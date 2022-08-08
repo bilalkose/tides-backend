@@ -23,8 +23,6 @@ public class Video {
     @Column(name = "educationId",nullable = false)
     private int educationId;
 
-
-    //TODO: BURAYA DÖNÜLECEK VİDEOLAR VERİTABANINDA NASIL SAKLANIR BAKILACAK.
     @Column(name = "video",nullable = false)
     private String video;
 
